@@ -30,3 +30,21 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     // Additional routes
     $router->get('/articles/category/{category}', 'ArticleController@getByCategory'); // Filter by category
 });
+
+// ========================================
+// RUTE UNTUK KONSUMSI PUBLIK (PublicArt)
+// ========================================
+// Endpoint ini tidak memerlukan otentikasi dan hanya menampilkan data yang dipublikasikan.
+$router->group(['prefix' => 'public'], function () use ($router) {
+    // Mendapatkan semua artikel yang dipublikasikan
+    // Akan memanggil method `indexPublic` di ArticleController
+    $router->get('/articles', 'ArticleController@indexPublic');
+
+    // Mendapatkan detail satu artikel yang dipublikasikan berdasarkan ID
+    // Akan memanggil method `showPublic` di ArticleController
+    $router->get('/articles/{id}', 'ArticleController@showPublic');
+
+    // Mendapatkan daftar kategori yang aktif
+    // Akan memanggil method `indexPublic` di CategoryController (controller baru)
+    $router->get('/categories', 'CategoryController@indexPublic');
+});
